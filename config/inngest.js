@@ -1,6 +1,7 @@
 import { Inngest } from "inngest";
 import connectDB from "./db";
-import User from "@models/user";
+import User from "../models/User.js";
+
 
 // Create a client to send and receive events
 export const inngest = new Inngest({ id: "quickcart-next" });
@@ -18,7 +19,7 @@ export const syncUserCreation = inngest.createFunction(
     const userData = {
       _id: id,
       email: email_addresses[0].email_address,
-      name: first_name + " " + last_name,
+      name: `${first_name ?? ""} ${last_name ?? ""}`,
       imageUrl: image_url,
     };
     await connectDB();
